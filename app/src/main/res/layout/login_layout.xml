@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:hint="Nome Completo"
-        android:inputType="textPersonName"
+        android:hint="CPF"
+        android:inputType="number"
         android:padding="10dp"
         android:textSize="30dp" />
 

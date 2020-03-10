@@ -15,7 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table tbUsuario(email text primary key, senha text)");
+        db.execSQL("create table tbUsuario(email text, telefone number, rg number, cpf number primary key, senha text)");
     }
 
     @Override
@@ -24,12 +24,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     //inserindo valores no banco de dados
 
-    public boolean insert(String email, String senha) {
+    public boolean insert(String email, String telefone, String rg, String cpf, String senha) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put("email", email);
         contentValues.put("senha", senha);
+        contentValues.put("telefone", telefone);
+        contentValues.put("rg", rg);
+        contentValues.put("cpf", cpf);
 
         long inserido = db.insert("tbUsuario", null, contentValues);
 
@@ -40,10 +43,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Boolean validarEmail(String email) {
+    public Boolean validarCpf(String cpf) {
         SQLiteDatabase db = getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("select * from tbUsuario where email = ?", new String[]{email});
+        Cursor cursor = db.rawQuery("select * from tbUsuario where cpf = ?", new String[]{cpf});
         if (cursor.getCount() > 0) {
             return false;
         } else {
@@ -54,9 +57,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //Verificando usuário e senha
 
-    public Boolean checarEmailSenha(String email, String senha) {
+    public Boolean checarCpfSenha(String cpf, String senha) {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from tbUsuario where email = ? and senha = ?", new String[]{email, senha});
+        Cursor cursor = db.rawQuery("select * from tbUsuario where email = ? and senha = ?", new String[]{cpf, senha});
         if (cursor.getCount() > 0) {
             return true;
         } else {

@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
     DatabaseHelper db;
 
-    EditText txtEmail, txtSenha, txtConfirmaSenha;
+    EditText txtCpf, txtSenha, txtConfirmaSenha, txtTelefone, txtRg, txtNome;
     Button btnRegistar, btnLogin;
 
 
@@ -22,9 +22,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        db = new DatabaseHelper(this);\
+        db = new DatabaseHelper(this);
 
-        txtEmail = findViewById(R.id.idEmail);
+        txtCpf = findViewById(R.id.idCPF);
+        txtRg = findViewById(R.id.idRG);
+        txtTelefone = findViewById(R.id.idTelefone);
+        txtNome = findViewById(R.id.idNome);
         txtSenha = findViewById(R.id.idSenha);
         txtConfirmaSenha = findViewById(R.id.idConfirmaSenha);
 
@@ -43,19 +46,22 @@ public class MainActivity extends AppCompatActivity {
         btnRegistar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email, senha, confirmaSenha;
+                String cpf, senha, confirmaSenha, telefone, rg, nome;
 
-                email = txtEmail.getText().toString();
+                cpf = txtCpf.getText().toString();
+                rg = txtRg.getText().toString();
+                telefone = txtTelefone.getText().toString();
+                nome = txtNome.getText().toString();
                 senha = txtSenha.getText().toString();
                 confirmaSenha = txtConfirmaSenha.getText().toString();
 
-                if (email.equals("") || senha.equals("") || confirmaSenha.equals("")) {
+                if (cpf.equals("") || senha.equals("") || confirmaSenha.equals("")) {
                     Toast.makeText(getApplicationContext(), "Favor inserir valores!!", Toast.LENGTH_SHORT).show();
                 } else {
                     if (senha.equals(confirmaSenha)) {
-                        Boolean checharEmail = db.validarEmail(email);
-                        if (checharEmail == true) {
-                            Boolean inserir = db.insert(email, senha);
+                        Boolean checharCpf = db.validarCpf(cpf);
+                        if (checharCpf == true) {
+                            Boolean inserir = db.insert(cpf, rg, telefone, nome, senha);
                             if (inserir == true) {
                                 Toast.makeText(getApplicationContext(), "Registro inserido com sucesso!!!", Toast.LENGTH_SHORT).show();
                             }

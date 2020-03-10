@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText txtLoginEmail, txtLoginSenha;
+    EditText txtLogin, txtLoginSenha;
     Button btnLoginEntrar;
     DatabaseHelper db;
 
@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_layout);
 
-        txtLoginEmail = findViewById(R.id.idLoginEmail);
+        txtLogin = findViewById(R.id.idLogin);
         txtLoginSenha = findViewById(R.id.idLoginSenha);
 
 
@@ -32,17 +32,17 @@ public class LoginActivity extends AppCompatActivity {
         btnLoginEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email, senha;
+                String cpf, senha;
 
-                email = txtLoginEmail.getText().toString();
+                cpf = txtLogin.getText().toString();
                 senha = txtLoginSenha.getText().toString();
 
-                Boolean checarEmailSenha = db.checarEmailSenha(email,senha);
+                Boolean checarCpfSenha = db.checarCpfSenha(cpf,senha);
 
-                if (checarEmailSenha==true){
+                if (checarCpfSenha==true){
                     Log.i("btnLoginEntar","Cliquei no botão entrar do login");
                   //  Toast.makeText(getApplicationContext(),"Acesso autorizado!!!", Toast.LENGTH_SHORT).toString();
-                    Intent intent = new Intent(getApplicationContext(),MenuPrincipalActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), ListView.class);
                     startActivity(intent);
                 }
                 else
